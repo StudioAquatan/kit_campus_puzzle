@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Create Puzzle{% endblock %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/staff.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section id="create_puzzle" class="content-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8" id="puzzle-box" style="height: auto;">
+                    {% for parts in puzzle.parts.all %}
+                    <img id="fragment{{ forloop.counter0 }}" class="parts-fragment" src="{{ parts.img.url }}" style="left: {{ parts.x }}%;top: {{ parts.y }}%; width: {{ parts.ratio }}%;">
+                    {% endfor %}
+                    <img id="bg-image" class="img-fluid" src="{{ puzzle.bg_image.url }}">
+                </div>
+                <div class="col-lg-4">
+                    <form method="post">
+                        <div class="card bg-dark">
+                            <div class="card-header">
+                                <h4 class="card-title">パーツ位置入力</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="form-group col-lg-6">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <input class="btn btn-outline-primary" type="submit" value="Save">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+    <script>
+        var bgWidth, bgHeight, prevWidth, prevHeight, windowResize, dragged;
+        var bg = $("#bg-image");
+        var puzzleBox = $("#puzzle-box");
+
+        function setRatio(index) {
+            var fragment = $("#fragment" + index);
+            var left = parseFloat(fragment.css('left'));
+            var top = parseFloat(fragment.css('top'));
+            $("#id_parts-left" + index).val(left / bgWidth * 100);
+            $("#id_parts-top" + index).val(top / bgHeight * 100);
+        }
+
+        function reArrangement(index) {
+            var fragment = $("#fragment" + index);
+            var leftRatio = $("#id_parts-left" + index).val();
+            var topRatio = $("#id_parts-top" + index).val();
+            fragment.css('left', bgWidth * leftRatio / 100);
+            fragment.css('top', bgHeight * topRatio / 100);
+        }
+
+        function setBoxHeight() {
+            prevWidth = bgWidth;
+            prevHeight = bgHeight;
+            if (prevWidth === undefined) {
+                prevWidth = bg.width();
+            }
+            if (prevHeight === undefined) {
+                prevHeight = bg.height();
+            }
+            bgWidth = bg.width();
+            bgHeight = bg.height();
+            puzzleBox.css("height", bgHeight);
+        }
+
+        $(window).resize(function () {
+            if (windowResize !== false) {
+                clearTimeout(windowResize);
+            }
+            setBoxHeight();
+            windowResize = setTimeout(function () {
+                $('img[id^="fragment"]').each(function (i) {
+                    reArrangement(i);
+                });
+            }, 200)
+        });
+
+        $(document).ready(function () {
+            setBoxHeight();
+            var fragments = $(".parts-fragment");
+            fragments.draggable({containment: "#puzzle-box"});
+            for (var i = 0; i < $('img[id^="fragment"]').length; i++) {
+                fragments.eq(i).on('mousemove', {index: i}, function (e) {
+                    if (dragged !== false) {
+                        clearTimeout(dragged);
+                    }
+                    dragged = setTimeout(function () {
+                        setRatio(e.data.index);
+                    }, 200);
+                })
+            }
+        })
+    </script>
+{% endblock %}

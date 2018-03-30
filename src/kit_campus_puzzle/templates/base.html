@@ -1,0 +1,82 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock title %} - あくあたん工房</title>
+    <link href="{% static 'css/bootstrap4-neon-glow.min.css' %}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:700" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}"><nobr>センター<wbr>KIT地理</nobr></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'home' %}#about">センターKIT地理とは</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'home' %}#voice">受験者の声</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.aquatan.studio" target="_blank">Contact</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle btn btn-outline-primary" id="userData" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
+                            <div class="dropdown-menu" aria-labelledby="userData">
+                                <a class="dropdown-item" href="{% url 'exam:list' %}">受験する</a>
+                                <a class="dropdown-item" href="{% url 'exam:ranking' %}">ランキングを見る</a>
+                                <div class="dropdown-divider"></div>
+                                {% if user.is_superuser %}
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">admin</a>
+                                    <a class="dropdown-item" href="{% url 'puzzle:list' %}">パズル一覧</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="{% url 'account_logout' %}">ログアウト</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <a role="button" class="btn btn-outline-info" href="{% provider_login_url 'twitter' %}">
+                            <i class="fa fa-twitter"></i> ログイン</a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{% block content %}
+{% endblock %}
+<footer>
+    <div class="container text-center">
+        <p>Copyright &copy; Studio Aquatan 2018</p>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="{% static 'vendor/jquery/jquery.min.js' %}"><\/script>')</script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+{% block script %}{% endblock %}
+</body>
+</html>

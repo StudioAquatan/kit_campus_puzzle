@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}問題リスト{% endblock %}
+
+{% block content %}
+    <section id="beginner-question" class="content-section">
+        <div class="container">
+            <h1>初級問題</h1>
+            <div class="row">
+                {% for obj in object_list %}
+                    {% if obj.for_begginer and not obj.is_test %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <a class="card-link" href="{% url 'exam:take' puzzle_id=obj.pk %}">
+                                <img class="card-img-top" src="{{ obj.bg_image.url }}">
+                            </a>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ obj.name }}</h3>
+                                <p class="card-text">{{ obj.description }}</p>
+                                <a class="card-link" href="{% url 'exam:take' puzzle_id=obj.pk %}">受験する</a>
+                            </div>
+                        </div>
+                        <a href="{% url 'exam:take' puzzle_id=obj.pk %}"><h2>{{ obj.name }}</h2></a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section id="highgrade-question" class="content-section">
+        <div class="container">
+            <h1>上級問題</h1>
+            <div class="row">
+                {% for obj in object_list %}
+                    {% if not obj.for_begginer and not obj.is_test %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <a class="card-link" href="{% url 'exam:take' puzzle_id=obj.pk %}">
+                                <img class="card-img-top" src="{{ obj.bg_image.url }}">
+                            </a>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ obj.name }}</h3>
+                                <p class="card-text">{{ obj.description }}</p>
+                                <a class="card-link" href="{% url 'exam:take' puzzle_id=obj.pk %}">受験する</a>
+                            </div>
+                        </div>
+                        <a href="{% url 'exam:take' puzzle_id=obj.pk %}"><h2>{{ obj.name }}</h2></a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% if user.is_superuser %}
+    <section id="test-question" class="content-section">
+        <div class="container">
+            <h1>テスト</h1>
+            <div class="row">
+                {% for obj in object_list %}
+                    {% if obj.is_test %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <a class="card-link" href="{% url 'exam:take' puzzle_id=obj.pk %}">
+                                <img class="card-img-top" src="{{ obj.bg_image.url }}">
+                            </a>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ obj.name }}</h3>
+                                <p class="card-text">{{ obj.description }}</p>
+                                <a class="card-link" href="{% url 'exam:take' puzzle_id=obj.pk %}">受験する</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+{% endblock %}

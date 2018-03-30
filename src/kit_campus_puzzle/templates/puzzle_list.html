@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}一覧{% endblock %}
+
+{% block content %}
+    <section id="puzzle-list" class="content-section">
+        <div class="container">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>link</th>
+                        {% if user.is_superuser %}
+                        <th>edit</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for puzzle in object_list %}
+                    <tr>
+                        <td>{{ puzzle.pk }}</td>
+                        <td>{{ puzzle.name }}</td>
+                        <td><a href="{% url 'puzzle:detail' puzzle_id=puzzle.pk %}">/puzzle/{{ puzzle.pk }}</a></td>
+                        {% if user.is_superuser %}
+                        <td>
+                            <a role="button" class="btn btn-outline-info"
+                               href="{% url 'puzzle:edit' puzzle_id=puzzle.pk %}">Edit</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

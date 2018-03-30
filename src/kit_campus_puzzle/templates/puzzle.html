@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}{{ puzzle.name }}{% endblock %}
+
+{% block content %}
+    <section id="puzzle" class="content-section">
+        <div class="container">
+            <h1>{{ puzzle.name }}</h1>
+            <img class="img-fluid" src="{{ puzzle.bg_image.url }}">
+        </div>
+    </section>
+{% endblock %}

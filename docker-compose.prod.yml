@@ -1,0 +1,50 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.app
+    container_name: campus_puzzle_app
+    expose:
+      - 80
+    env_file:
+      - ./docker/app/.env
+    volumes:
+      - ./src/kit_campus_puzzle:/opt/kit_campus_puzzle
+    command: cd src/kit_campus_puzzle && gunicorn kit_campus_puzzle.wsgi --bind 0.0.0.0:8000 -w 8 --keep-alive 3
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      default:
+        aliases:
+          - campus_puzzle_app
+  db:
+    image: studioaquatan/mysql-utf8mb4:latest
+    container_name: campus_puzzle_db
+    env_file:
+      - ./docker/mysql/.env
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+    networks:
+      default:
+        aliases:
+          - campus_puzzle_db
+  static:
+    image: nginx:latest
+    container_name: campus_puzzle_static
+    volumes:
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+      - ./src/kit_campus_puzzle/static:/usr/share/www/html/static
+    env_file:
+      - ./docker/nginx/.env
+    networks:
+      default:
+        aliases:
+          - campus_puzzle_static
+
+networks:
+  default:
+    external:
+      name: internal_shared

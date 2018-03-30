@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Ranking{% endblock %}
+
+{% block content %}
+    <section class="content-section">
+        <div class="container">
+        {% for rankers in rank_group %}
+            {% if rankers|length != 0 %}
+                {% if rankers.0.puzzle.is_test %}
+                {%  if user.is_superuser %}
+                <h1>{{ rankers.0.puzzle.name }}</h1>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ranker in rankers %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ ranker.user.username }}</td>
+                            <td>{{ ranker.score }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+                {% else %}
+                <h1>{{ rankers.0.puzzle.name }}</h1>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ranker in rankers %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ ranker.user.username }}</td>
+                            <td>{{ ranker.score }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        </div>
+    </section>
+{% endblock %}
