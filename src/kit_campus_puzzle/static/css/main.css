@@ -326,3 +326,7 @@ img::-moz-selection {
 #puzzle-box .parts-fragment p {
     margin-top: -50px;
 }
+
+.card {
+    margin-bottom: 15px;
+}
