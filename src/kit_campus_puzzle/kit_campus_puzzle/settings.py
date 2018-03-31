@@ -27,9 +27,8 @@ DEBUG = bool(os.getenv('DEBUG', 'False').lower() == 'true')
 
 ALLOWED_HOSTS = []
 
-if not DEBUG:
-    for host in os.getenv('ALLOWED_HOSTS').split(','):
-        ALLOWED_HOSTS.append(host.strip())
+for host in os.getenv('ALLOWED_HOSTS').split(','):
+    ALLOWED_HOSTS.append(host.strip())
 
 
 # Application definition
