@@ -9,9 +9,7 @@ services:
       - 80
     env_file:
       - ./docker/app/.env
-    volumes:
-      - ./src/kit_campus_puzzle:/opt/kit_campus_puzzle
-    command: cd src/kit_campus_puzzle && gunicorn kit_campus_puzzle.wsgi --bind 0.0.0.0:8000 -w 8 --keep-alive 3
+    command: gunicorn kit_campus_puzzle.wsgi --bind 0.0.0.0:8000 -w 8 --keep-alive 3
     depends_on:
       - db
     links:
