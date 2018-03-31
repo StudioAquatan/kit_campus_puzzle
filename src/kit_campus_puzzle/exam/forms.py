@@ -9,7 +9,7 @@ class HiddenPartsPositionForm(forms.Form):
         for i, parts in enumerate(parent_puzzle.parts.all()):
             self.fields['parts-left{num}'.format(num=i)] = FloatField(
                 label=parts.name + '-left',
-                initial=parts.x,
+                initial=0.0,
                 widget=HiddenInput(
                     attrs={
                         'class': 'no-spinners form-control',
@@ -19,7 +19,7 @@ class HiddenPartsPositionForm(forms.Form):
             )
             self.fields['parts-top{num}'.format(num=i)] = FloatField(
                 label=parts.name + '-top',
-                initial=parts.y,
+                initial=0.0,
                 widget=HiddenInput(
                     attrs={
                         'class': 'no-spinners form-control',
