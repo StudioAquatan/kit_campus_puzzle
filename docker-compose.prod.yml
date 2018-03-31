@@ -5,8 +5,10 @@ services:
       context: ./
       dockerfile: ./Dockerfile.app
     container_name: campus_puzzle_app
+    volumes:
+      - ./src/kit_campus_puzzle:/opt/kit_campus_puzzle
     expose:
-      - 80
+      - 8000
     env_file:
       - ./docker/app/.env
     command: gunicorn kit_campus_puzzle.wsgi --bind 0.0.0.0:8000 -w 8 --keep-alive 3
@@ -14,6 +16,7 @@ services:
       - db
     links:
       - db
+    restart: always
     networks:
       default:
         aliases:
@@ -25,6 +28,7 @@ services:
       - ./docker/mysql/.env
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
+    restart: always
     networks:
       default:
         aliases:
@@ -35,8 +39,14 @@ services:
     volumes:
       - ./docker/nginx/conf:/etc/nginx/conf.d
       - ./src/kit_campus_puzzle/static:/usr/share/www/html/static
+      - ./src/kit_campus_puzzle/media:/usr/share/www/html/media
     env_file:
       - ./docker/nginx/.env
+    depends_on:
+      - app
+    links:
+      - app
+    restart: always
     networks:
       default:
         aliases:
