@@ -8,9 +8,9 @@ services:
       - ./docker/app/.env
     volumes:
       - ./src/kit_campus_puzzle:/opt/kit_campus_puzzle
-    ports:
-      - '8000:8000'
-    command: python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
+    expose:
+     - 8000
+    command: python3 manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
     links:
@@ -18,8 +18,20 @@ services:
   db:
     image: studioaquatan/mysql-utf8mb4:latest
     ports:
-      - '3306:3306'
+      - "3306:3306"
     env_file:
       - ./docker/mysql/.env
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
+  static:
+    image: nginx:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./docker/nginx/conf_dev:/etc/nginx/conf.d
+      - ./src/kit_campus_puzzle/static:/usr/share/www/html/static
+      - ./src/kit_campus_puzzle/media:/usr/share/www/html/media
+    depends_on:
+      - app
+    links:
+      - app
