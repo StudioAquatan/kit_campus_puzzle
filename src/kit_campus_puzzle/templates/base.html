@@ -5,7 +5,17 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock title %} - あくあたん工房</title>
+    <title>{% block title %}{% endblock %} - あくあたん工房</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="センターKIT地理"/>
+    <meta property="og:description" content="{% block og_description %}センター試験新科目KIT地理のテスト受験が出来るサイトです{% endblock %}"/>
+    <meta property="og:title" content="{% block og_title %}センターKIT地理{% endblock %} - あくあたん工房"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% block og_image %}{% static 'img/twitter_card.png' %}{% endblock %}"/>
+    <meta name="twitter:card" content="{% block card_type %}summary_large_image{% endblock %}"/>
+    <meta name="twitter:site" content="@StudioAquatan"/>
+    <meta name="twitter:creator" content="@StudioAquatan">
+
     <link href="{% static 'css/bootstrap4-neon-glow.min.css' %}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           type="text/css">

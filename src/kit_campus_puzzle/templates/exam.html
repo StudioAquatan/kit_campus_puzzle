@@ -3,6 +3,9 @@
 
 {% block title %}{{ puzzle.name }}{% endblock %}
 
+{% block og_title %}{{ puzzle.name }}{% endblock %}
+{% block og_image %}{{ puzzle.bg_image.url }}{% endblock %}
+
 {% block content %}
     <section class="content-section" id="exam-section">
         <div class="container">

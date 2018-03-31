@@ -2,6 +2,10 @@
 
 {% block title %}Result: {{ object.user.username }}{% endblock %}
 
+{% block og_title %}{{ object.puzzle.name }}{% endblock %}
+{% block og_image %}{{ object.result_image.url }}{% endblock %}
+{% block og_description %}Created by {{ user.username }}{% endblock %}
+
 {% block content %}
     <section id="result-section" class="content-section">
         <div class="container">
