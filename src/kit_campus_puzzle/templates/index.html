@@ -4,6 +4,36 @@
 {% block title %}センターKIT地理{% endblock %}
 
 {% block content %}
+    <div id="banner-ad">
+        <a href="https://www.kit.ac.jp/test_index/gs-science-and-technology_2/"><img id="banner-img" src="../media/d-banner-img.png"/></a>
+    </div>
+    <style type="text/css">
+        #banner-ad {
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            animation-name: fall_out;
+            animation-duration: 4s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+        #banner-img{
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            z-index: 5;
+
+            max-width: 734px;
+            width: 80%;
+        }
+        @keyframes fall_out {
+            0% {transform: translateY(0px);}
+            100% {transform: translateY(87%); position: fixed;}
+        }
+    </style>
+
     <header class="masthead">
         <div class="intro-body">
             <div class="container">
