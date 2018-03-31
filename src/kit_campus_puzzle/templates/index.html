@@ -50,6 +50,16 @@
                     <div class="col-lg-8 mx-auto">
                         <h1 class="brand-heading"><nobr>センター<wbr>KIT地理</nobr></h1>
                         <p class="intro-text">Are you really a student of KIT?</p>
+                        <p class="intro-text">
+                            <a href="https://twitter.com/share"
+                               class="btn twitter-hashtag-button"
+                               data-show-count="false"
+                               data-size="large"
+                               data-hashtags="kit_campus_puzzle"
+                               data-text="センターKIT地理"
+                               data-via="StudioAquatan"
+                               data-url="{{ request.build_absolute_uri }}">Share #kit_campus_puzzle</a>
+                        </p>
                         <a href="#about" class="btn btn-circle js-scroll-trigger">
                             <i class="fa fa-angle-double-down animated"></i>
                         </a>
@@ -64,11 +74,102 @@
                 <div class="col-lg-8 mx-auto">
                     <h2>センターKIT地理</h2>
                     <p>センター試験の問題に変更があるのはご存じですか？</p>
-                    <p>この検定はあなたが本当に京都工芸繊維大学の学生であり、眠気に負けず大学へ通い、広く大学についての知見を身につけていることを証明するものです</p>
+                    <p>このテストではあなたが本当に京都工芸繊維大学の学生であり、眠気に負けず大学へ通い、広く大学についての知見を身につけていることを証明するものです</p>
                     <p>問題は非常に簡単であり、通っている学生ならば誰でも簡単に答えることが出来るものです。新入生の皆さんは自身の腕試しのつもりで挑んでみましょう！</p>
+
                     <p><small>※この検定の合否は進学・成績・研究室配属のいずれにも影響しません</small></p>
+                    <a role="button" class="btn btn-lg btn-outline-primary" href="{% url 'exam:list' %}">受験する</a>
                 </div>
             </div>
         </div>
     </section>
+    <section id="voice" class="content-section">
+        <div class="container text-center">
+            <h2>受験者の声</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h5 class="card-title">自信が付き、就活が上手くいくように</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">大学での自分に自信が無く、面接などではおどおどしがちで、どうにか自信が欲しいなぁと思っていたところこちらに出会いました。大学についてより深く理解出来たと思っています。</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            応用生物学課程 4回生
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h5 class="card-title">講義に間に合うようになりました！</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">今まではキャンパス内ですぐ迷子になっていたので、ほとんど講義に間に合わなかったのですが、こちらで特訓を始めてからは間に合うようになりました！卒業が見えてきたのでとても嬉しいです！</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            匿名希望 6回生
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h5 class="card-title">宝くじに当たりました！</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">こちらのサイトでテストを受けながら宝くじを買う列に並んだところなんと当選！もう大学は辞めて自由に生きていきます！</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            匿名希望
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h5 class="card-title">D進を決めました！</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">大学の地理を学んでいくうちに、この大学を離れるのが惜しくなりました。アカデミアの世界は厳しいですが、講義室や建物が居並ぶ様を見るだけで心が癒やされ、自信が湧いてきます。</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            情報工学専攻 4回生
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h5 class="card-title">あくあたん工房の活動場所を覚えました</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">あくあたん工房は技術を磨くために最適な場所です！優しい先輩たちの元、自由に自分の創作意欲を爆発させることが出来ます！</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            匿名希望 2回生
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h5 class="card-title">ソフトウェア工学研究室は8号館3階</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">ソフトウェア工学研究室ではD進とグローバルインターンシップをおすすめしてくる水槽管理ロボットと共に、毎日楽しく研究しています。</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            匿名希望
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
