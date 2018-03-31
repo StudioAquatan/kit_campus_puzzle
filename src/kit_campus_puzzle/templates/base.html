@@ -54,6 +54,7 @@
                             <div class="dropdown-menu" aria-labelledby="userData">
                                 <a class="dropdown-item" href="{% url 'exam:list' %}">受験する</a>
                                 <a class="dropdown-item" href="{% url 'exam:ranking' %}">ランキングを見る</a>
+                                <a class="dropdown-item" href="{% url 'exam:history' %}">受験履歴を見る</a>
                                 <div class="dropdown-divider"></div>
                                 {% if user.is_superuser %}
                                     <a class="dropdown-item" href="{% url 'admin:index' %}">admin</a>

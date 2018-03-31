@@ -62,3 +62,12 @@ class RankingView(TemplateView):
 class ResultView(DetailView):
     model = Rank
     template_name = 'exam_result.html'
+
+
+class HistoryView(LoginRequiredMixin, TemplateView):
+    template_name = 'exam_history.html'
+
+    def get(self, request, *args, **kwargs):
+        ctx = self.get_context_data(**kwargs)
+        ctx['taken_exams'] = Rank.objects.filter(user=request.user).all()
+        return self.render_to_response(ctx)

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}問題リスト{% endblock %}
+
+
+{% block content %}
+    <section id="beginner-question" class="content-section">
+        <div class="container">
+            <div class="row">
+                <h1>{{ user.username }}さんの受験履歴</h1>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Puzzle Name</th>
+                            <th>Score</th>
+                            <th>Taken At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if taken_exams|length == 0 %}
+                        <tr><td colspan="3">受験履歴がありません</td></tr>
+                    {% else %}
+                    {% for res in taken_exams %}
+                        <tr>
+                            <td>{{ res.puzzle.name }}</td>
+                            <td><a href="{% url 'exam:result' pk=res.pk %}">{{ res.score }}</a></td>
+                            <td>{{ res.taken_at }}</td>
+                        </tr>
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}
