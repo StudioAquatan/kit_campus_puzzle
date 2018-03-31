@@ -20,11 +20,25 @@
                             <h1 class="card-text">スコア：{{ object.score }}</h1>
                             <p class="card-text">受験科目：{{ object.puzzle.name }}</p>
                             <p class="card-text">詳細説明：{{ object.puzzle.description }}</p>
-                            <p class="card-text"><small class="text-muted">受験日時：{{ object.taken_at }}</small></p>
+                            <a href="https://twitter.com/share"
+                               class="twitter-hashtag-button"
+                               data-show-count="false"
+                               data-size="large"
+                               data-hashtags="kit_campus_puzzle"
+                               data-text="{{ user.username }}さんは{{ object.score }}点でした"
+                               data-via="StudioAquatan"
+                               data-url="{{ request.build_absolute_uri }}">Share #kit_campus_puzzle</a>
+                            <p class="card-text">
+                                <small class="text-muted">受験日時：{{ object.taken_at }}</small>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block script %}
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
