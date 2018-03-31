@@ -4,18 +4,35 @@
 
 dockerをインストールしておくこと  
 
-### データベースの起動
+### clone
 
 ```bash
-$ docker-compose up db
+$ git clone https://github.com/StudioAquatan/kit_campus_puzzle.git
 ```
 
-### パラメータの入力
+### 起動
+
+まずは`build`する
 
 ```bash
-$ cp docker/app/.env.sample docker/app/.env
-$ cp docker/mysql/.env.sample docker/mysql/.env
+$ cd kit_campus_puzzle
+$ pwd
+/path/to/kit_campus_puzzle
+$ docker-compose build
 ```
 
-それぞれ編集する
+
+ビルドが正常に成功したら`docker/**/.env`ファイルを編集し、適切な値を入力して、`up`してコンテナを起動
+
+```bash
+$ docker-compose up
+```
+
+`docker ps`してDjangoアプリケーションが動いているコンテナ名を取得し、migrate及びcreatesuperuserする
+
+```bash
+$ docker exec -it {{ コンテナ名 }} python3 manage.py migrate && python3 manage.py createsuperuser
+```
+
+`http://127.0.0.1/admin`へアクセスする
 
